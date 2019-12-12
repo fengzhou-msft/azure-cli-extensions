@@ -10,7 +10,8 @@ from azure.cli.core.commands.parameters import (
     tags_type,
     get_enum_type,
     resource_group_name_type,
-    get_location_type
+    get_location_type,
+    get_three_state_flag
 )
 
 
@@ -22,7 +23,6 @@ def load_arguments(self, _):
     with self.argument_context('notificationhubs create') as c:
         c.argument('resource_group', resource_group_name_type)
         c.argument('namespace_name', id_part=None, help='The namespace name.')
-        c.argument('name', id_part=None, help='Resource name')
         c.argument('location', arg_type=get_location_type(self.cli_ctx))
         c.argument('tags', tags_type)
         c.argument('sku', id_part=None, help='The sku of the created namespace')
@@ -53,6 +53,7 @@ def load_arguments(self, _):
         c.argument('resource_group', resource_group_name_type)
 
     with self.argument_context('notificationhubs check_availability') as c:
+        c.argument('name',id_part=None, help='The namespace name.')
         pass
 
     with self.argument_context('notificationhubs list_keys') as c:
@@ -78,6 +79,7 @@ def load_arguments(self, _):
         c.argument('resource_group', resource_group_name_type)
         c.argument('namespace_name', id_part=None, help='The namespace name.')
         c.argument('name', id_part=None, help='The connection string of the namespace for the specified authorizationRule.')
+        c.argument('properties',id_part=None, help='Properties of the Namespace AuthorizationRules.')
 
     with self.argument_context('notificationhubs delete_authorization_rule') as c:
         c.argument('resource_group', resource_group_name_type)
@@ -88,7 +90,6 @@ def load_arguments(self, _):
         c.argument('resource_group', resource_group_name_type)
         c.argument('namespace_name', id_part=None, help='The namespace name.')
         c.argument('notification_hub_name', id_part=None, help='The notification hub name.')
-        c.argument('name', id_part=None, help='Resource name')
         c.argument('location', arg_type=get_location_type(self.cli_ctx))
         c.argument('tags', tags_type)
         c.argument('sku', id_part=None, help='The sku of the created namespace')
@@ -125,6 +126,7 @@ def load_arguments(self, _):
     with self.argument_context('notificationhubs notification-hub check_notification_hub_availability') as c:
         c.argument('resource_group', resource_group_name_type)
         c.argument('namespace_name', id_part=None, help='The namespace name.')
+        c.argument('name',id_part=None, help='The notificationHub name.')
 
     with self.argument_context('notificationhubs notification-hub regenerate_keys') as c:
         c.argument('resource_group', resource_group_name_type)

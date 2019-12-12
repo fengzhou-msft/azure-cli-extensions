@@ -6,7 +6,7 @@
 
 def cf_notificationhubs(cli_ctx, *_):
     from azure.cli.core.commands.client_factory import get_mgmt_service_client
-    from .vendored_sdks.notificationhubs import NotificationHubsManagementClient
+    from azext_notificationhubs.vendored_sdks import NotificationHubsManagementClient
     return get_mgmt_service_client(cli_ctx, NotificationHubsManagementClient)
 
 

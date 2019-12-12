@@ -16,7 +16,6 @@ def list_notificationhubs(cmd, client):
 def create_notificationhubs(cmd, client,
                             resource_group,
                             namespace_name,
-                            name,
                             location=None,
                             tags=None,
                             sku=None,
@@ -24,7 +23,6 @@ def create_notificationhubs(cmd, client,
                             rights=None,
                             policy_key=None):
     body = {}
-    body['name'] = name  # str
     body['location'] = location  # str
     body['tags'] = tags  # dictionary
     body['sku'] = json.loads(sku) if isinstance(sku, str) else sku
@@ -81,8 +79,8 @@ def list_notificationhubs(cmd, client,
     return client.list_all()
 
 
-def check_availability_notificationhubs(cmd, client):
-    body = {}
+def check_availability_notificationhubs(cmd, client, name):
+    body = {"name": name}
     return client.check_availability(parameters=body)
 
 
@@ -117,8 +115,10 @@ def list_authorization_rules_notificationhubs(cmd, client,
 def create_or_update_authorization_rule_notificationhubs(cmd, client,
                                                          resource_group,
                                                          namespace_name,
-                                                         name):
+                                                         name,
+                                                         properties):
     body = {}
+    body['properties'] = properties
     return client.create_or_update_authorization_rule(resource_group_name=resource_group, namespace_name=namespace_name, authorization_rule_name=name, parameters=body)
 
 
@@ -133,7 +133,6 @@ def create_notificationhubs_notification_hub(cmd, client,
                                              resource_group,
                                              namespace_name,
                                              notification_hub_name,
-                                             name,
                                              location=None,
                                              tags=None,
                                              sku=None,
@@ -141,7 +140,6 @@ def create_notificationhubs_notification_hub(cmd, client,
                                              rights=None,
                                              policy_key=None):
     body = {}
-    body['name'] = name  # str
     body['location'] = location  # str
     body['tags'] = tags  # dictionary
     body['sku'] = json.loads(sku) if isinstance(sku, str) else sku
@@ -202,8 +200,9 @@ def list_notificationhubs_notification_hub(cmd, client,
 
 def check_notification_hub_availability_notificationhubs_notification_hub(cmd, client,
                                                                           resource_group,
-                                                                          namespace_name):
-    body = {}
+                                                                          namespace_name,
+                                                                          name):
+    body = {"name": name}
     return client.check_notification_hub_availability(resource_group_name=resource_group, namespace_name=namespace_name, parameters=body)
 
 
