@@ -2266,6 +2266,46 @@
                 "sha256Digest": "1042caa1c3b6c85c2e5360bf57de4d26f71afd80ecae6b14cf45fbfe73b5cf0e"
             }
         ],
+        "storage-ors-preview": [
+            {
+                "downloadUrl": "https://azurecliprod.blob.core.windows.net/cli-extensions/storage_ors_preview-0.1.0-py2.py3-none-any.whl",
+                "filename": "storage_ors_preview-0.1.0-py2.py3-none-any.whl",
+                "metadata": {
+                    "extensions": {
+                        "python.details": {
+                            "contacts": [
+                                {
+                                    "email": "azpycli@microsoft.com",
+                                    "name": "Microsoft Corporation",
+                                    "role": "author"
+                                }
+                            ],
+                            "document_names": {
+                                "description": "DESCRIPTION.rst"
+                            },
+                            "project_urls": {
+                                "Home": "https://github.com/Azure/azure-cli-extensions"
+                            }
+                        }
+                    },
+                    "extras": [],
+                    "generator": "bdist_wheel (0.30.0)",
+                    "license": "MIT",
+                    "metadata_version": "2.0",
+                    "name": "storage-ors-preview",
+                    "run_requires": [
+                        {
+                            "requires": [
+                                "azure-cli-core"
+                            ]
+                        }
+                    ],
+                    "summary": "Microsoft Azure Command-Line Tools Storage-ors-preview Extension",
+                    "version": "0.1.0"
+                },
+                "sha256Digest": "8fd0638390ba1e84cc76709cef86c9a705228b592417956ed7eae3383fcd999b"
+            }
+        ],
         "storage-preview": [
             {
                 "downloadUrl": "https://azurecliprod.blob.core.windows.net/cli-extensions/storage_preview-0.2.8-py2.py3-none-any.whl",
