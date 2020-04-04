@@ -8,7 +8,7 @@ create a datashare account.
 |------|----|-----------|----------|--------------|
 |**--resource_group_name**|string|The resource group name.|resource_group_name|resource_group_name|
 |**--account_name**|string|The name of the share account.|account_name|account_name|
-|**--identity**|object|Identity of resource|identity|identity|
+|**--identity**|object|Identity Info on the Account|identity|identity|
 |**--location**|string|Location of the azure resource.|location|location|
 |**--tags**|dictionary|Tags on the azure resource.|tags|tags|
 ### datashare account delete
@@ -44,13 +44,13 @@ update a datashare account.
 |**--resource_group_name**|string|The resource group name.|resource_group_name|resource_group_name|
 |**--account_name**|string|The name of the share account.|account_name|account_name|
 |**--tags**|dictionary|Tags on the azure resource.|tags|tags|
-### datashare consumer-invitation list
+### datashare consumer-invitation list-invitation
 
-list a datashare consumer-invitation.
+list-invitation a datashare consumer-invitation.
 
 |Option|Type|Description|Path (SDK)|Path (swagger)|
 |------|----|-----------|----------|--------------|
-|**--skip_token**|string|Continuation token|skip_token|skip_token|
+|**--skip_token**|string|The continuation token|skip_token|skip_token|
 ### datashare consumer-invitation reject-invitation
 
 reject-invitation a datashare consumer-invitation.
@@ -58,7 +58,7 @@ reject-invitation a datashare consumer-invitation.
 |Option|Type|Description|Path (SDK)|Path (swagger)|
 |------|----|-----------|----------|--------------|
 |**--location**|string|Location of the invitation|location|location|
-|**--invitation_id**|string|Unique id of the invitation.|invitation_id|properties_invitation_id|
+|**--invitation_id**|string|Unique id of the invitation.|invitation_id|invitation_id|
 ### datashare consumer-invitation show
 
 show a datashare consumer-invitation.
@@ -85,9 +85,9 @@ create a datashare data-set.
 |------|----|-----------|----------|--------------|
 |**--resource_group_name**|string|The resource group name.|resource_group_name|resource_group_name|
 |**--account_name**|string|The name of the share account.|account_name|account_name|
-|**--share_name**|string|The name of the share.|share_name|share_name|
+|**--share_name**|string|The name of the share to add the data set to.|share_name|share_name|
 |**--data_set_name**|string|The name of the dataSet.|data_set_name|data_set_name|
-|**--kind**|choice|Kind of data set.|kind|kind|
+|**--data_set**|object|The new data set information.|data_set|data_set|
 ### datashare data-set delete
 
 delete a datashare data-set.
@@ -107,7 +107,7 @@ list a datashare data-set.
 |**--resource_group_name**|string|The resource group name.|resource_group_name|resource_group_name|
 |**--account_name**|string|The name of the share account.|account_name|account_name|
 |**--share_name**|string|The name of the share.|share_name|share_name|
-|**--skip_token**|string|Continuation token|skip_token|skip_token|
+|**--skip_token**|string|continuation token|skip_token|skip_token|
 ### datashare data-set show
 
 show a datashare data-set.
@@ -126,9 +126,9 @@ create a datashare data-set-mapping.
 |------|----|-----------|----------|--------------|
 |**--resource_group_name**|string|The resource group name.|resource_group_name|resource_group_name|
 |**--account_name**|string|The name of the share account.|account_name|account_name|
-|**--share_subscription_name**|string|The name of the shareSubscription.|share_subscription_name|share_subscription_name|
-|**--data_set_mapping_name**|string|The name of the dataSetMapping.|data_set_mapping_name|data_set_mapping_name|
-|**--kind**|choice|Kind of data set.|kind|kind|
+|**--share_subscription_name**|string|The name of the share subscription which will hold the data set sink.|share_subscription_name|share_subscription_name|
+|**--data_set_mapping_name**|string|The name of the data set mapping to be created.|data_set_mapping_name|data_set_mapping_name|
+|**--data_set_mapping**|object|Destination data set configuration details.|data_set_mapping|data_set_mapping|
 ### datashare data-set-mapping delete
 
 delete a datashare data-set-mapping.
@@ -147,7 +147,7 @@ list a datashare data-set-mapping.
 |------|----|-----------|----------|--------------|
 |**--resource_group_name**|string|The resource group name.|resource_group_name|resource_group_name|
 |**--account_name**|string|The name of the share account.|account_name|account_name|
-|**--share_subscription_name**|string|The name of the shareSubscription.|share_subscription_name|share_subscription_name|
+|**--share_subscription_name**|string|The name of the share subscription.|share_subscription_name|share_subscription_name|
 |**--skip_token**|string|Continuation token|skip_token|skip_token|
 ### datashare data-set-mapping show
 
@@ -167,11 +167,11 @@ create a datashare invitation.
 |------|----|-----------|----------|--------------|
 |**--resource_group_name**|string|The resource group name.|resource_group_name|resource_group_name|
 |**--account_name**|string|The name of the share account.|account_name|account_name|
-|**--share_name**|string|The name of the share.|share_name|share_name|
+|**--share_name**|string|The name of the share to send the invitation for.|share_name|share_name|
 |**--invitation_name**|string|The name of the invitation.|invitation_name|invitation_name|
-|**--target_active_directory_id**|string|The target Azure AD Id. Can't be combined with email.|target_active_directory_id|properties_target_active_directory_id|
-|**--target_email**|string|The email the invitation is directed to.|target_email|properties_target_email|
-|**--target_object_id**|string|The target user or application Id that invitation is being sent to. Must be specified along TargetActiveDirectoryId. This enables sending invitations to specific users or applications in an AD tenant.|target_object_id|properties_target_object_id|
+|**--target_active_directory_id**|string|The target Azure AD Id. Can't be combined with email.|target_active_directory_id|target_active_directory_id|
+|**--target_email**|string|The email the invitation is directed to.|target_email|target_email|
+|**--target_object_id**|string|The target user or application Id that invitation is being sent to. Must be specified along TargetActiveDirectoryId. This enables sending invitations to specific users or applications in an AD tenant.|target_object_id|target_object_id|
 ### datashare invitation delete
 
 delete a datashare invitation.
@@ -191,7 +191,7 @@ list a datashare invitation.
 |**--resource_group_name**|string|The resource group name.|resource_group_name|resource_group_name|
 |**--account_name**|string|The name of the share account.|account_name|account_name|
 |**--share_name**|string|The name of the share.|share_name|share_name|
-|**--skip_token**|string|Continuation token|skip_token|skip_token|
+|**--skip_token**|string|The continuation token|skip_token|skip_token|
 ### datashare invitation show
 
 show a datashare invitation.
@@ -211,7 +211,7 @@ list a datashare provider-share-subscription.
 |**--resource_group_name**|string|The resource group name.|resource_group_name|resource_group_name|
 |**--account_name**|string|The name of the share account.|account_name|account_name|
 |**--share_name**|string|The name of the share.|share_name|share_name|
-|**--skip_token**|string|Continuation token|skip_token|skip_token|
+|**--skip_token**|string|Continuation Token|skip_token|skip_token|
 ### datashare provider-share-subscription reinstate
 
 reinstate a datashare provider-share-subscription.
@@ -251,9 +251,9 @@ create a datashare share.
 |**--resource_group_name**|string|The resource group name.|resource_group_name|resource_group_name|
 |**--account_name**|string|The name of the share account.|account_name|account_name|
 |**--share_name**|string|The name of the share.|share_name|share_name|
-|**--description**|string|Share description.|description|properties_description|
-|**--share_kind**|choice|Share kind.|share_kind|properties_share_kind|
-|**--terms**|string|Share terms.|terms|properties_terms|
+|**--description**|string|Share description.|description|description|
+|**--share_kind**|choice|Share kind.|share_kind|share_kind|
+|**--terms**|string|Share terms.|terms|terms|
 ### datashare share delete
 
 delete a datashare share.
@@ -271,7 +271,7 @@ list a datashare share.
 |------|----|-----------|----------|--------------|
 |**--resource_group_name**|string|The resource group name.|resource_group_name|resource_group_name|
 |**--account_name**|string|The name of the share account.|account_name|account_name|
-|**--skip_token**|string|Continuation token|skip_token|skip_token|
+|**--skip_token**|string|Continuation Token|skip_token|skip_token|
 ### datashare share list-synchronization
 
 list-synchronization a datashare share.
@@ -309,7 +309,7 @@ show a datashare share.
 |------|----|-----------|----------|--------------|
 |**--resource_group_name**|string|The resource group name.|resource_group_name|resource_group_name|
 |**--account_name**|string|The name of the share account.|account_name|account_name|
-|**--share_name**|string|The name of the share.|share_name|share_name|
+|**--share_name**|string|The name of the share to retrieve.|share_name|share_name|
 ### datashare share-subscription cancel-synchronization
 
 cancel-synchronization a datashare share-subscription.
@@ -329,8 +329,8 @@ create a datashare share-subscription.
 |**--resource_group_name**|string|The resource group name.|resource_group_name|resource_group_name|
 |**--account_name**|string|The name of the share account.|account_name|account_name|
 |**--share_subscription_name**|string|The name of the shareSubscription.|share_subscription_name|share_subscription_name|
-|**--invitation_id**|string|The invitation id.|invitation_id|properties_invitation_id|
-|**--source_share_location**|string|Source share location.|source_share_location|properties_source_share_location|
+|**--invitation_id**|string|The invitation id.|invitation_id|invitation_id|
+|**--source_share_location**|string|Source share location.|source_share_location|source_share_location|
 ### datashare share-subscription delete
 
 delete a datashare share-subscription.
@@ -348,7 +348,7 @@ list a datashare share-subscription.
 |------|----|-----------|----------|--------------|
 |**--resource_group_name**|string|The resource group name.|resource_group_name|resource_group_name|
 |**--account_name**|string|The name of the share account.|account_name|account_name|
-|**--skip_token**|string|Continuation token|skip_token|skip_token|
+|**--skip_token**|string|Continuation Token|skip_token|skip_token|
 ### datashare share-subscription list-source-share-synchronization-setting
 
 list-source-share-synchronization-setting a datashare share-subscription.
@@ -367,7 +367,7 @@ list-synchronization a datashare share-subscription.
 |------|----|-----------|----------|--------------|
 |**--resource_group_name**|string|The resource group name.|resource_group_name|resource_group_name|
 |**--account_name**|string|The name of the share account.|account_name|account_name|
-|**--share_subscription_name**|string|The name of the shareSubscription.|share_subscription_name|share_subscription_name|
+|**--share_subscription_name**|string|The name of the share subscription.|share_subscription_name|share_subscription_name|
 |**--skip_token**|string|Continuation token|skip_token|skip_token|
 ### datashare share-subscription list-synchronization-detail
 
@@ -377,7 +377,7 @@ list-synchronization-detail a datashare share-subscription.
 |------|----|-----------|----------|--------------|
 |**--resource_group_name**|string|The resource group name.|resource_group_name|resource_group_name|
 |**--account_name**|string|The name of the share account.|account_name|account_name|
-|**--share_subscription_name**|string|The name of the shareSubscription.|share_subscription_name|share_subscription_name|
+|**--share_subscription_name**|string|The name of the share subscription.|share_subscription_name|share_subscription_name|
 |**--synchronization_id**|string|Synchronization id|synchronization_id|synchronization_id|
 |**--skip_token**|string|Continuation token|skip_token|skip_token|
 ### datashare share-subscription show
@@ -397,8 +397,8 @@ synchronize a datashare share-subscription.
 |------|----|-----------|----------|--------------|
 |**--resource_group_name**|string|The resource group name.|resource_group_name|resource_group_name|
 |**--account_name**|string|The name of the share account.|account_name|account_name|
-|**--share_subscription_name**|string|The name of the shareSubscription.|share_subscription_name|share_subscription_name|
-|**--synchronization_mode**|choice|Synchronization mode|synchronization_mode|synchronization_mode|
+|**--share_subscription_name**|string|The name of share subscription|share_subscription_name|share_subscription_name|
+|**--synchronization_mode**|choice|Mode of synchronization used in triggers and snapshot sync. Incremental by default|synchronization_mode|synchronization_mode|
 ### datashare synchronization-setting create
 
 create a datashare synchronization-setting.
@@ -407,9 +407,9 @@ create a datashare synchronization-setting.
 |------|----|-----------|----------|--------------|
 |**--resource_group_name**|string|The resource group name.|resource_group_name|resource_group_name|
 |**--account_name**|string|The name of the share account.|account_name|account_name|
-|**--share_name**|string|The name of the share.|share_name|share_name|
+|**--share_name**|string|The name of the share to add the synchronization setting to.|share_name|share_name|
 |**--synchronization_setting_name**|string|The name of the synchronizationSetting.|synchronization_setting_name|synchronization_setting_name|
-|**--kind**|choice|Kind of data set.|kind|kind|
+|**--synchronization_setting**|object|The new synchronization setting information.|synchronization_setting|synchronization_setting|
 ### datashare synchronization-setting delete
 
 delete a datashare synchronization-setting.
@@ -419,7 +419,7 @@ delete a datashare synchronization-setting.
 |**--resource_group_name**|string|The resource group name.|resource_group_name|resource_group_name|
 |**--account_name**|string|The name of the share account.|account_name|account_name|
 |**--share_name**|string|The name of the share.|share_name|share_name|
-|**--synchronization_setting_name**|string|The name of the synchronizationSetting.|synchronization_setting_name|synchronization_setting_name|
+|**--synchronization_setting_name**|string|The name of the synchronizationSetting .|synchronization_setting_name|synchronization_setting_name|
 ### datashare synchronization-setting list
 
 list a datashare synchronization-setting.
@@ -429,7 +429,7 @@ list a datashare synchronization-setting.
 |**--resource_group_name**|string|The resource group name.|resource_group_name|resource_group_name|
 |**--account_name**|string|The name of the share account.|account_name|account_name|
 |**--share_name**|string|The name of the share.|share_name|share_name|
-|**--skip_token**|string|Continuation token|skip_token|skip_token|
+|**--skip_token**|string|continuation token|skip_token|skip_token|
 ### datashare synchronization-setting show
 
 show a datashare synchronization-setting.
@@ -448,9 +448,9 @@ create a datashare trigger.
 |------|----|-----------|----------|--------------|
 |**--resource_group_name**|string|The resource group name.|resource_group_name|resource_group_name|
 |**--account_name**|string|The name of the share account.|account_name|account_name|
-|**--share_subscription_name**|string|The name of the shareSubscription.|share_subscription_name|share_subscription_name|
+|**--share_subscription_name**|string|The name of the share subscription which will hold the data set sink.|share_subscription_name|share_subscription_name|
 |**--trigger_name**|string|The name of the trigger.|trigger_name|trigger_name|
-|**--kind**|choice|Kind of data set.|kind|kind|
+|**--trigger**|object|Trigger details.|trigger|trigger|
 ### datashare trigger delete
 
 delete a datashare trigger.
@@ -469,7 +469,7 @@ list a datashare trigger.
 |------|----|-----------|----------|--------------|
 |**--resource_group_name**|string|The resource group name.|resource_group_name|resource_group_name|
 |**--account_name**|string|The name of the share account.|account_name|account_name|
-|**--share_subscription_name**|string|The name of the shareSubscription.|share_subscription_name|share_subscription_name|
+|**--share_subscription_name**|string|The name of the share subscription.|share_subscription_name|share_subscription_name|
 |**--skip_token**|string|Continuation token|skip_token|skip_token|
 ### datashare trigger show
 
