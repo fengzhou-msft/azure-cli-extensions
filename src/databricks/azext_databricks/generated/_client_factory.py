@@ -7,11 +7,13 @@
 # Changes may cause incorrect behavior and will be lost if the code is
 # regenerated.
 # --------------------------------------------------------------------------
-# pylint: disable=wildcard-import
-# pylint: disable=unused-wildcard-import
 
-from .generated.custom import *  # noqa: F403
-try:
-    from .manual.custom import *  # noqa: F403
-except ImportError:
-    pass
+
+def cf_databricks(cli_ctx, *_):
+    from azure.cli.core.commands.client_factory import get_mgmt_service_client
+    from ..vendored_sdks.databricks import DatabricksClient
+    return get_mgmt_service_client(cli_ctx, DatabricksClient)
+
+
+def cf_workspace(cli_ctx, *_):
+    return cf_databricks(cli_ctx).workspace

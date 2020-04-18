@@ -6,14 +6,10 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------
 
-from ._databricks_client import DatabricksClient
-from ._version import VERSION
+from ._workspace_operations_async import WorkspaceOperations
+from ._operation_operations_async import OperationOperations
 
-__version__ = VERSION
-__all__ = ['DatabricksClient']
-
-try:
-    from .patch import patch_sdk
-    patch_sdk()
-except ImportError:
-    pass
+__all__ = [
+    'WorkspaceOperations',
+    'OperationOperations',
+]
