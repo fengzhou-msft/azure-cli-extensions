@@ -7,6 +7,8 @@
 # Changes may cause incorrect behavior and will be lost if the code is
 # regenerated.
 # --------------------------------------------------------------------------
+# pylint: disable=too-many-statements
+# pylint: disable=too-many-locals
 
 from azure.cli.core.commands import CliCommandType
 
@@ -42,5 +44,5 @@ def load_command_table(self, _):
         g.custom_command('list', 'account_alias_list')
         g.custom_show_command('show', 'account_alias_show')
         g.custom_command('create', 'account_alias_create', supports_no_wait=True)
-        g.custom_command('delete', 'account_alias_delete')
+        g.custom_command('delete', 'account_alias_delete', confirmation=True)
         g.custom_wait_command('wait', 'account_alias_show')

@@ -19,7 +19,7 @@ helps['account subscription'] = """
 
 helps['account subscription list'] = """
     type: command
-    short-summary: Gets all subscriptions for a tenant.
+    short-summary: "Gets all subscriptions for a tenant."
     examples:
       - name: listSubscriptions
         text: |-
@@ -28,7 +28,7 @@ helps['account subscription list'] = """
 
 helps['account subscription show'] = """
     type: command
-    short-summary: Gets details about a specified subscription.
+    short-summary: "Gets details about a specified subscription."
     examples:
       - name: getSubscription
         text: |-
@@ -37,7 +37,7 @@ helps['account subscription show'] = """
 
 helps['account subscription cancel'] = """
     type: command
-    short-summary: The operation to cancel a subscription
+    short-summary: "The operation to cancel a subscription"
     examples:
       - name: cancelSubscription
         text: |-
@@ -46,7 +46,7 @@ helps['account subscription cancel'] = """
 
 helps['account subscription enable'] = """
     type: command
-    short-summary: The operation to enable a subscription
+    short-summary: "The operation to enable a subscription"
     examples:
       - name: enableSubscription
         text: |-
@@ -55,8 +55,8 @@ helps['account subscription enable'] = """
 
 helps['account subscription list-location'] = """
     type: command
-    short-summary: This operation provides all the locations that are available for resource providers; however, each r\
-esource provider may support a subset of this list.
+    short-summary: "This operation provides all the locations that are available for resource providers; however, each \
+resource provider may support a subset of this list."
     examples:
       - name: listLocations
         text: |-
@@ -65,7 +65,7 @@ esource provider may support a subset of this list.
 
 helps['account subscription rename'] = """
     type: command
-    short-summary: The operation to rename a subscription
+    short-summary: "The operation to rename a subscription"
     examples:
       - name: renameSubscription
         text: |-
@@ -80,7 +80,7 @@ helps['account tenant'] = """
 
 helps['account tenant list'] = """
     type: command
-    short-summary: Gets the tenants for your account.
+    short-summary: "Gets the tenants for your account."
     examples:
       - name: listTenants
         text: |-
@@ -94,7 +94,7 @@ helps['account alias'] = """
 
 helps['account alias list'] = """
     type: command
-    short-summary: Get Alias Subscription.
+    short-summary: "Get Alias Subscription."
     examples:
       - name: GetAlias
         text: |-
@@ -103,7 +103,7 @@ helps['account alias list'] = """
 
 helps['account alias show'] = """
     type: command
-    short-summary: Get Alias Subscription.
+    short-summary: "Get Alias Subscription."
     examples:
       - name: GetAlias
         text: |-
@@ -112,10 +112,10 @@ helps['account alias show'] = """
 
 helps['account alias create'] = """
     type: command
-    short-summary: Create Alias Subscription.
+    short-summary: "Create Alias Subscription."
     parameters:
       - name: --properties
-        short-summary: Put alias request properties.
+        short-summary: "Put alias request properties."
         long-summary: |
             Usage: --properties display-name=XX workload=XX billing-scope=XX subscription-id=XX
 
@@ -133,7 +133,7 @@ E2Q-NOIT-BG7-TGB/invoiceSections/MTT4-OBS7-PJA-TGB" display-name="Contoso MCA su
 
 helps['account alias delete'] = """
     type: command
-    short-summary: Delete Alias.
+    short-summary: "Delete Alias."
     examples:
       - name: DeleteAlias
         text: |-

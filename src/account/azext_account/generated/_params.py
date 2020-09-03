@@ -15,40 +15,32 @@ from azext_account.action import AddProperties
 
 def load_arguments(self, _):
 
-    with self.argument_context('account subscription list') as c:
-        pass
-
     with self.argument_context('account subscription show') as c:
-        c.argument('subscription_id', help='The ID of the target subscription.', id_part='subscription')
+        c.argument('subscription_id', type=str, help='The ID of the target subscription.', id_part='subscription')
 
     with self.argument_context('account subscription cancel') as c:
-        c.argument('subscription_id', help='Subscription Id.', id_part='subscription')
+        c.argument('subscription_id', type=str, help='Subscription Id.', id_part='subscription')
 
     with self.argument_context('account subscription enable') as c:
-        c.argument('subscription_id', help='Subscription Id.', id_part='subscription')
+        c.argument('subscription_id', type=str, help='Subscription Id.', id_part='subscription')
 
     with self.argument_context('account subscription list-location') as c:
-        c.argument('subscription_id', help='The ID of the target subscription.')
+        c.argument('subscription_id', type=str, help='The ID of the target subscription.')
 
     with self.argument_context('account subscription rename') as c:
-        c.argument('subscription_id', help='Subscription Id.', id_part='subscription')
-        c.argument('subscription_name', options_list=['--name', '-n'], help='New subscription name')
-
-    with self.argument_context('account tenant list') as c:
-        pass
-
-    with self.argument_context('account alias list') as c:
-        pass
+        c.argument('subscription_id', type=str, help='Subscription Id.', id_part='subscription')
+        c.argument('subscription_name', options_list=['--name', '-n', '--subscription-name'], type=str, help='New '
+                   'subscription name')
 
     with self.argument_context('account alias show') as c:
-        c.argument('alias_name', options_list=['--name', '-n'], help='Alias Name')
+        c.argument('alias_name', options_list=['--name', '-n', '--alias-name'], type=str, help='Alias Name')
 
     with self.argument_context('account alias create') as c:
-        c.argument('alias_name', options_list=['--name', '-n'], help='Alias Name')
+        c.argument('alias_name', options_list=['--name', '-n', '--alias-name'], type=str, help='Alias Name')
         c.argument('properties', action=AddProperties, nargs='+', help='Put alias request properties.')
 
     with self.argument_context('account alias delete') as c:
-        c.argument('alias_name', options_list=['--name', '-n'], help='Alias Name')
+        c.argument('alias_name', options_list=['--name', '-n', '--alias-name'], type=str, help='Alias Name')
 
     with self.argument_context('account alias wait') as c:
-        c.argument('alias_name', options_list=['--name', '-n'], help='Alias Name')
+        c.argument('alias_name', options_list=['--name', '-n', '--alias-name'], type=str, help='Alias Name')

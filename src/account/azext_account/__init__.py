@@ -10,16 +10,20 @@
 
 from azure.cli.core import AzCommandsLoader
 from azext_account.generated._help import helps  # pylint: disable=unused-import
+try:
+    from azext_account.manual._help import helps  # pylint: disable=reimported
+except ImportError:
+    pass
 
 
 class SubscriptionClientCommandsLoader(AzCommandsLoader):
 
     def __init__(self, cli_ctx=None):
         from azure.cli.core.commands import CliCommandType
-        from azext_account.generated._client_factory import cf_account
+        from azext_account.generated._client_factory import cf_account_cl
         account_custom = CliCommandType(
             operations_tmpl='azext_account.custom#{}',
-            client_factory=cf_account)
+            client_factory=cf_account_cl)
         parent = super(SubscriptionClientCommandsLoader, self)
         parent.__init__(cli_ctx=cli_ctx, custom_command_type=account_custom)
 

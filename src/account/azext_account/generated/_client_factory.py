@@ -9,19 +9,20 @@
 # --------------------------------------------------------------------------
 
 
-def cf_account(cli_ctx, *_):
+def cf_account_cl(cli_ctx, *_):
     from azure.cli.core.commands.client_factory import get_mgmt_service_client
     from ..vendored_sdks.subscription import SubscriptionClient
-    return get_mgmt_service_client(cli_ctx, SubscriptionClient)
+    return get_mgmt_service_client(cli_ctx,
+                                   SubscriptionClient)
 
 
 def cf_subscription(cli_ctx, *_):
-    return cf_account(cli_ctx).subscription
+    return cf_account_cl(cli_ctx).subscription
 
 
 def cf_tenant(cli_ctx, *_):
-    return cf_account(cli_ctx).tenant
+    return cf_account_cl(cli_ctx).tenant
 
 
 def cf_alias(cli_ctx, *_):
-    return cf_account(cli_ctx).alias
+    return cf_account_cl(cli_ctx).alias
