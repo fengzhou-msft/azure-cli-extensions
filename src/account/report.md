@@ -18,7 +18,10 @@ create a account alias.
 |Option|Type|Description|Path (SDK)|Swagger name|
 |------|----|-----------|----------|------------|
 |**--alias-name**|string|Alias Name|alias_name|aliasName|
-|**--properties**|object|Put alias request properties.|properties|properties|
+|**--display-name**|string|The friendly name of the subscription.|properties_display_name|displayName|
+|**--workload**|choice|The workload type of the subscription. It can be either Production or DevTest.|properties_workload|workload|
+|**--billing-scope**|string|Determines whether subscription is fieldLed, partnerLed or LegacyEA|properties_billing_scope|billingScope|
+|**--subscription-id**|string|This parameter can be used to create alias for existing subscription Id|properties_subscription_id|subscriptionId|
 
 ### account alias delete
 

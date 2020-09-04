@@ -26,9 +26,11 @@ def setup(test):
 def step__alias_put_createalias(test):
     test.cmd('az account alias create '
              '--name "{myAlias}" '
-             '--properties billing-scope="/providers/Microsoft.Billing/billingAccounts/e879cf0f-2b4d-5431-109a-f72fc986'
-             '8693:024cabf4-7321-4cf9-be59-df0c77ca51de_2019-05-31/billingProfiles/PE2Q-NOIT-BG7-TGB/invoiceSections/MT'
-             'T4-OBS7-PJA-TGB" display-name="Contoso MCA subscription" workload="Production"',
+             '--billing-scope "/providers/Microsoft.Billing/billingAccounts/e879cf0f-2b4d-5431-109a-f72fc9868693:024cab'
+             'f4-7321-4cf9-be59-df0c77ca51de_2019-05-31/billingProfiles/PE2Q-NOIT-BG7-TGB/invoiceSections/MTT4-OBS7-PJA'
+             '-TGB" '
+             '--display-name "Contoso MCA subscription" '
+             '--workload "Production"',
              checks=[
                  test.check("name", "{myAlias}", case_sensitive=False),
              ])

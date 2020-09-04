@@ -45,14 +45,17 @@ class AliasOperations:
     async def _create_initial(
         self,
         alias_name: str,
-        properties: "models.PutAliasRequestProperties",
+        properties_display_name: str,
+        properties_workload: Union[str, "models.Workload"],
+        properties_billing_scope: str,
+        properties_subscription_id: Optional[str] = None,
         **kwargs
     ) -> "models.PutAliasResponse":
         cls = kwargs.pop('cls', None)  # type: ClsType["models.PutAliasResponse"]
         error_map = {404: ResourceNotFoundError, 409: ResourceExistsError}
         error_map.update(kwargs.pop('error_map', {}))
 
-        _body = models.PutAliasRequest(properties=properties)
+        _body = models.PutAliasRequest(properties=properties, display_name=properties_display_name, workload=properties_workload, billing_scope=properties_billing_scope, subscription_id=properties_subscription_id)
         api_version = "2020-09-01"
         content_type = kwargs.pop("content_type", "application/json")
 
@@ -100,15 +103,27 @@ class AliasOperations:
     async def begin_create(
         self,
         alias_name: str,
-        properties: "models.PutAliasRequestProperties",
+        properties_display_name: str,
+        properties_workload: Union[str, "models.Workload"],
+        properties_billing_scope: str,
+        properties_subscription_id: Optional[str] = None,
         **kwargs
     ) -> AsyncLROPoller["models.PutAliasResponse"]:
         """Create Alias Subscription.
 
         :param alias_name: Alias Name.
         :type alias_name: str
-        :param properties: Put alias request properties.
-        :type properties: ~subscription_client.models.PutAliasRequestProperties
+        :param properties_display_name: The friendly name of the subscription.
+        :type properties_display_name: str
+        :param properties_workload: The workload type of the subscription. It can be either Production
+         or DevTest.
+        :type properties_workload: str or ~subscription_client.models.Workload
+        :param properties_billing_scope: Determines whether subscription is fieldLed, partnerLed or
+         LegacyEA.
+        :type properties_billing_scope: str
+        :param properties_subscription_id: This parameter can be used to create alias for existing
+         subscription Id.
+        :type properties_subscription_id: str
         :keyword callable cls: A custom type or function that will be passed the direct response
         :keyword str continuation_token: A continuation token to restart a poller from a saved state.
         :keyword polling: True for ARMPolling, False for no polling, or a
@@ -129,7 +144,10 @@ class AliasOperations:
         if cont_token is None:
             raw_result = await self._create_initial(
                 alias_name=alias_name,
-                properties=properties,
+                properties_display_name=properties_display_name,
+                properties_workload=properties_workload,
+                properties_billing_scope=properties_billing_scope,
+                properties_subscription_id=properties_subscription_id,
                 cls=lambda x,y,z: x,
                 **kwargs
             )

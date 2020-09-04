@@ -58,12 +58,18 @@ def account_alias_show(client,
 
 def account_alias_create(client,
                          alias_name,
-                         properties,
+                         display_name,
+                         workload,
+                         billing_scope,
+                         subscription_id=None,
                          no_wait=False):
     return sdk_no_wait(no_wait,
                        client.begin_create,
                        alias_name=alias_name,
-                       properties=properties)
+                       properties_display_name=display_name,
+                       properties_workload=workload,
+                       properties_billing_scope=billing_scope,
+                       properties_subscription_id=subscription_id)
 
 
 def account_alias_delete(client,
