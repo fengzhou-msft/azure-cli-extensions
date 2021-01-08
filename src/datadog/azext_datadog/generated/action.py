@@ -37,6 +37,9 @@ class AddDatadogOrganizationProperties(argparse.Action):
                 d['linking_client_id'] = v[0]
             elif kl == 'enterprise-app-id':
                 d['enterprise_app_id'] = v[0]
+            else:
+                raise CLIError('Unsupported Key {} is provided for parameter datadog_organization_properties. All '
+                               'possible keys are: linking-auth-code, linking-client-id, enterprise-app-id'.format(k))
         return d
 
 
@@ -63,13 +66,16 @@ class AddUserInfo(argparse.Action):
                 d['email_address'] = v[0]
             elif kl == 'phone-number':
                 d['phone_number'] = v[0]
+            else:
+                raise CLIError('Unsupported Key {} is provided for parameter user_info. All possible keys are: name, '
+                               'email-address, phone-number'.format(k))
         return d
 
 
-class AddMetricRulesFilteringTags(argparse._AppendAction):
+class AddFilteringTags(argparse._AppendAction):
     def __call__(self, parser, namespace, values, option_string=None):
         action = self.get_action(values, option_string)
-        super(AddMetricRulesFilteringTags, self).__call__(parser, namespace, action, option_string)
+        super(AddFilteringTags, self).__call__(parser, namespace, action, option_string)
 
     def get_action(self, values, option_string):  # pylint: disable=no-self-use
         try:
@@ -89,6 +95,9 @@ class AddMetricRulesFilteringTags(argparse._AppendAction):
                 d['value'] = v[0]
             elif kl == 'action':
                 d['action'] = v[0]
+            else:
+                raise CLIError('Unsupported Key {} is provided for parameter filtering_tags. All possible keys are: '
+                               'name, value, action'.format(k))
         return d
 
 
@@ -115,6 +124,9 @@ class AddLogRulesFilteringTags(argparse._AppendAction):
                 d['value'] = v[0]
             elif kl == 'action':
                 d['action'] = v[0]
+            else:
+                raise CLIError('Unsupported Key {} is provided for parameter log_rules_filtering_tags. All possible '
+                               'keys are: name, value, action'.format(k))
         return d
 
 
@@ -139,6 +151,7 @@ class AddProperties(argparse.Action):
                 d['single_sign_on_state'] = v[0]
             elif kl == 'enterprise-app-id':
                 d['enterprise_app_id'] = v[0]
-            elif kl == 'single-sign-on-url':
-                d['single_sign_on_url'] = v[0]
+            else:
+                raise CLIError('Unsupported Key {} is provided for parameter properties. All possible keys are: '
+                               'single-sign-on-state, enterprise-app-id'.format(k))
         return d

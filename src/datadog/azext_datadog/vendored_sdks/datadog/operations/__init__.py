@@ -6,24 +6,26 @@
 # Changes may cause incorrect behavior and will be lost if the code is regenerated.
 # --------------------------------------------------------------------------
 
-from ._api_key_operations import ApiKeyOperations
-from ._host_operations import HostOperations
-from ._linked_resource_operations import LinkedResourceOperations
-from ._monitored_resource_operations import MonitoredResourceOperations
-from ._operation_operations import OperationOperations
-from ._monitor_operations import MonitorOperations
+from ._marketplace_agreements_operations import MarketplaceAgreementsOperations
+from ._api_keys_operations import ApiKeysOperations
+from ._hosts_operations import HostsOperations
+from ._linked_resources_operations import LinkedResourcesOperations
+from ._monitored_resources_operations import MonitoredResourcesOperations
+from ._operations import Operations
+from ._monitors_operations import MonitorsOperations
 from ._refresh_set_password_operations import RefreshSetPasswordOperations
-from ._tag_rule_operations import TagRuleOperations
-from ._single_sign_on_configuration_operations import SingleSignOnConfigurationOperations
+from ._tag_rules_operations import TagRulesOperations
+from ._single_sign_on_configurations_operations import SingleSignOnConfigurationsOperations
 
 __all__ = [
-    'ApiKeyOperations',
-    'HostOperations',
-    'LinkedResourceOperations',
-    'MonitoredResourceOperations',
-    'OperationOperations',
-    'MonitorOperations',
+    'MarketplaceAgreementsOperations',
+    'ApiKeysOperations',
+    'HostsOperations',
+    'LinkedResourcesOperations',
+    'MonitoredResourcesOperations',
+    'Operations',
+    'MonitorsOperations',
     'RefreshSetPasswordOperations',
-    'TagRuleOperations',
-    'SingleSignOnConfigurationOperations',
+    'TagRulesOperations',
+    'SingleSignOnConfigurationsOperations',
 ]

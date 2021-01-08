@@ -18,39 +18,42 @@ if TYPE_CHECKING:
     from azure.core.credentials import TokenCredential
 
 from ._configuration import MicrosoftDatadogClientConfiguration
-from .operations import ApiKeyOperations
-from .operations import HostOperations
-from .operations import LinkedResourceOperations
-from .operations import MonitoredResourceOperations
-from .operations import OperationOperations
-from .operations import MonitorOperations
+from .operations import MarketplaceAgreementsOperations
+from .operations import ApiKeysOperations
+from .operations import HostsOperations
+from .operations import LinkedResourcesOperations
+from .operations import MonitoredResourcesOperations
+from .operations import Operations
+from .operations import MonitorsOperations
 from .operations import RefreshSetPasswordOperations
-from .operations import TagRuleOperations
-from .operations import SingleSignOnConfigurationOperations
+from .operations import TagRulesOperations
+from .operations import SingleSignOnConfigurationsOperations
 from . import models
 
 
 class MicrosoftDatadogClient(object):
     """MicrosoftDatadogClient.
 
-    :ivar api_key: ApiKeyOperations operations
-    :vartype api_key: microsoft_datadog_client.operations.ApiKeyOperations
-    :ivar host: HostOperations operations
-    :vartype host: microsoft_datadog_client.operations.HostOperations
-    :ivar linked_resource: LinkedResourceOperations operations
-    :vartype linked_resource: microsoft_datadog_client.operations.LinkedResourceOperations
-    :ivar monitored_resource: MonitoredResourceOperations operations
-    :vartype monitored_resource: microsoft_datadog_client.operations.MonitoredResourceOperations
-    :ivar operation: OperationOperations operations
-    :vartype operation: microsoft_datadog_client.operations.OperationOperations
-    :ivar monitor: MonitorOperations operations
-    :vartype monitor: microsoft_datadog_client.operations.MonitorOperations
+    :ivar marketplace_agreements: MarketplaceAgreementsOperations operations
+    :vartype marketplace_agreements: microsoft_datadog_client.operations.MarketplaceAgreementsOperations
+    :ivar api_keys: ApiKeysOperations operations
+    :vartype api_keys: microsoft_datadog_client.operations.ApiKeysOperations
+    :ivar hosts: HostsOperations operations
+    :vartype hosts: microsoft_datadog_client.operations.HostsOperations
+    :ivar linked_resources: LinkedResourcesOperations operations
+    :vartype linked_resources: microsoft_datadog_client.operations.LinkedResourcesOperations
+    :ivar monitored_resources: MonitoredResourcesOperations operations
+    :vartype monitored_resources: microsoft_datadog_client.operations.MonitoredResourcesOperations
+    :ivar operations: Operations operations
+    :vartype operations: microsoft_datadog_client.operations.Operations
+    :ivar monitors: MonitorsOperations operations
+    :vartype monitors: microsoft_datadog_client.operations.MonitorsOperations
     :ivar refresh_set_password: RefreshSetPasswordOperations operations
     :vartype refresh_set_password: microsoft_datadog_client.operations.RefreshSetPasswordOperations
-    :ivar tag_rule: TagRuleOperations operations
-    :vartype tag_rule: microsoft_datadog_client.operations.TagRuleOperations
-    :ivar single_sign_on_configuration: SingleSignOnConfigurationOperations operations
-    :vartype single_sign_on_configuration: microsoft_datadog_client.operations.SingleSignOnConfigurationOperations
+    :ivar tag_rules: TagRulesOperations operations
+    :vartype tag_rules: microsoft_datadog_client.operations.TagRulesOperations
+    :ivar single_sign_on_configurations: SingleSignOnConfigurationsOperations operations
+    :vartype single_sign_on_configurations: microsoft_datadog_client.operations.SingleSignOnConfigurationsOperations
     :param credential: Credential needed for the client to connect to Azure.
     :type credential: ~azure.core.credentials.TokenCredential
     :param subscription_id: The Microsoft Azure subscription ID.
@@ -76,23 +79,25 @@ class MicrosoftDatadogClient(object):
         self._serialize = Serializer(client_models)
         self._deserialize = Deserializer(client_models)
 
-        self.api_key = ApiKeyOperations(
+        self.marketplace_agreements = MarketplaceAgreementsOperations(
             self._client, self._config, self._serialize, self._deserialize)
-        self.host = HostOperations(
+        self.api_keys = ApiKeysOperations(
             self._client, self._config, self._serialize, self._deserialize)
-        self.linked_resource = LinkedResourceOperations(
+        self.hosts = HostsOperations(
             self._client, self._config, self._serialize, self._deserialize)
-        self.monitored_resource = MonitoredResourceOperations(
+        self.linked_resources = LinkedResourcesOperations(
             self._client, self._config, self._serialize, self._deserialize)
-        self.operation = OperationOperations(
+        self.monitored_resources = MonitoredResourcesOperations(
             self._client, self._config, self._serialize, self._deserialize)
-        self.monitor = MonitorOperations(
+        self.operations = Operations(
+            self._client, self._config, self._serialize, self._deserialize)
+        self.monitors = MonitorsOperations(
             self._client, self._config, self._serialize, self._deserialize)
         self.refresh_set_password = RefreshSetPasswordOperations(
             self._client, self._config, self._serialize, self._deserialize)
-        self.tag_rule = TagRuleOperations(
+        self.tag_rules = TagRulesOperations(
             self._client, self._config, self._serialize, self._deserialize)
-        self.single_sign_on_configuration = SingleSignOnConfigurationOperations(
+        self.single_sign_on_configurations = SingleSignOnConfigurationsOperations(
             self._client, self._config, self._serialize, self._deserialize)
 
     def close(self):
