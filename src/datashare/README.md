@@ -1,5 +1,5 @@
 # Azure CLI datashare Extension #
-This package is for the 'datashare' extension, i.e. 'az datashare'. More info on what is [Data Share](https://docs.microsoft.com/azure/data-share/).
+This is the extension for datashare
 
 ### How to use ###
 Install this extension using the below CLI command
@@ -7,195 +7,293 @@ Install this extension using the below CLI command
 az extension add --name datashare
 ```
 
-Register DataShare Resource Provider for your default susbcription.
+### Included Features ###
+#### datashare account ####
+##### Create #####
 ```
-az provider register -n "Microsoft.DataShare"
-```
+az datashare account create --location "West US 2" --tags tag1="Red" tag2="White" --name "Account1" \
+    --resource-group "SampleResourceGroup" 
 
-### Included Features
-#### Datashare Account Management
-*Examples:*
-
-##### Create a Datashare Account
-
+az datashare account wait --created --name "{myAccount}" --resource-group "{rg}"
 ```
-az datashare account create \
---location "West US 2" \
---tags tag1=Red tag2=White \
---name "cli_test_account" \
---resource-group "datashare_provider_rg"
+##### Show #####
 ```
-
-##### Wait for the Datashare Account to be provisioned
+az datashare account show --name "Account1" --resource-group "SampleResourceGroup"
 ```
-az datashare account wait \
---name "cli_test_account" \
---resource-group "datashare_provider_rg" \
---created
+##### List #####
 ```
-
-#### Datashare Resource Management for a Provider
-*Examples:*
-
-##### Create a Datashare
+az datashare account list --resource-group "SampleResourceGroup"
 ```
-az datashare create \
---account-name "cli_test_account" \
---resource-group "datashare_provider_rg" \
---description "share description" \
---share-kind "CopyBased" \
---terms "Confidential" \
---name "cli_test_share"
+##### Update #####
 ```
-
-##### Create a Data Set
+az datashare account update --name "Account1" --tags tag1="Red" tag2="White" --resource-group "SampleResourceGroup"
 ```
-az datashare dataset create \
---account-name "cli_test_account" \
---name "cli_test_data_set" \
---resource-group "datashare_provider_rg" \
---share-name "cli_test_share" \
---dataset "{\"container_name\":\"mycontainer\",\"storage_account_name\":\"mysa\",\"kind\":\"Container\"}"
+##### Delete #####
 ```
-
-Please make sure the datashare account has the right permission of the data source when creating a data set upon it.
-For instance, you can use `az datashare account show` to get 'identity.principalId' of the account, then assign the right role to it.
+az datashare account delete --name "Account1" --resource-group "SampleResourceGroup"
 ```
-az role assignment create \
---role "Storage Blob Data Reader" \
---assignee-object-id {DatashareAccountPrincipalId} \
---assignee-principal-type ServicePrincipal \
---scope {StorageAccountId}
-```
-
-##### Create a Synchronization Setting
-```
-az datashare synchronization-setting create \
---account-name cli_test_account \
---resource-group datashare_provider_rg \
---share-name cli_test_share \
---name cli_test_synchronization_setting \
---recurrence-interval Day \
---synchronization-time "2020-04-05 10:50:00 +00:00" \
---kind ScheduleBased
-```
-
-##### List Synchronization History
-```
-az datashare synchronization list \
---account-name "cli_test_account" \
---resource-group "datashare_provider_rg" \
---share-name "cli_test_share"
-```
-
-##### Create a Datashare Invitation
-```
-az datashare invitation create \
---account-name "cli_test_account" \
---target-email "myname@microsoft.com" \
---name "cli_test_invitation" \
---resource-group "datashare_provider_rg" \
---share-name "cli_test_share"
-```
-
-##### List Share Subscriptions
-```
-az datashare provider-share-subscription list \
---account-name "cli_test_account" \
---resource-group "datashare_provider_rg" \
---share-name "cli_test_share"
-```
-Share subscriptions are created by Datashare consumers when they accept invitations.
-
-##### Revoke Datashare for a Share Subscription
-```
-az datashare provider-share-subscription revoke \
---account-name "cli_test_account" \
---share-subscription "{ProviderShareSubscriptionObjectId}" \
---resource-group "datashare_provider_rg" \
---share-name "cli_test_share"
-```
-
-##### Reinstate Datashare for a Share Subscription
-```
-az datashare provider-share-subscription reinstate \
---account-name "cli_test_account" \
---share-subscription "{ProviderShareSubscriptionObjectId}" \
---resource-group "datashare_provider_rg" \
---share-name "cli_test_share"
-```
-
-#### Datashare Resource Management for a Consumer
-*Examples:*
-
-##### List received Invitations
+#### datashare consumer invitation ####
+##### List #####
 ```
 az datashare consumer invitation list
 ```
-
-##### Create a Share Subscription from an Invitation
+##### Show #####
 ```
-az datashare consumer share-subscription create \
---account-name "cli_test_consumer_account" \
---resource-group "datashare_consumer_rg" \
---invitation-id "{InvitationId1}" \
---source-share-location "sourceShareLocation" \
---name "cli_test_share_subscription"
+az datashare consumer invitation show --invitation-id "dfbbc788-19eb-4607-a5a1-c74181bfff03" --location "East US 2"
 ```
-
-##### List Source Data Sets in the Share Subscription
+##### Reject #####
 ```
-az datashare consumer share-subscription list-source-dataset \
---account-name "cli_test_consumer_account" \
---resource-group "datashare_consumer_rg" \
---share-subscription-name "cli_test_share_subscription"
+az datashare consumer invitation reject --invitation-id "dfbbc788-19eb-4607-a5a1-c74181bfff03" --location "East US 2"
 ```
-
-##### Create a Data Set Mapping of the Source Data Set
+#### datashare dataset ####
+##### Create #####
 ```
-az datashare consumer dataset-mapping create \
---account-name "cli_test_consumer_account" \
---name "cli_test_data_set_mapping" \
---resource-group "datashare_consumer_rg" \
---share-subscription-name "cli_test_share_subscription" \
---mapping "{\"data_set_id\":\"2036a39f-add6-4347-9c82-a424dfaf4e8d\", \
-\"container_name\":\"newcontainer\", \"storage_account_name\":\"consumersa\", \
-\"kind\":\"BlobFolder\",\"prefix\":\"myprefix\"}"
+az datashare dataset create --account-name "Account1" \
+    --blob-data-set container-name="C1" file-path="file21" resource-group="SampleResourceGroup" storage-account-name="storage2" subscription-id="433a8dfd-e5d5-4e77-ad86-90acdc75eb1a" \
+    --name "Dataset1" --resource-group "SampleResourceGroup" --share-name "Share1" 
 ```
-Please make sure the datashare consumer account has the right permission of the data target when creating a data set mapping on it. For instance, you can use `az datashare account show` to get 'identity.principalId' of the account, then assign the right role to it.
+##### Create #####
 ```
-az role assignment create \
---role "Storage Blob Data Contributor" \
---assignee-object-id "{ConsumerDatashareAccountPrincipalId}" \
---assignee-principal-type ServicePrincipal \
---scope "{ConsumerStorageAccountId}"
+az datashare dataset create --account-name "Account1" \
+    --kusto-cluster-data-set kusto-cluster-resource-id="/subscriptions/433a8dfd-e5d5-4e77-ad86-90acdc75eb1a/resourceGroups/SampleResourceGroup/providers/Microsoft.Kusto/clusters/Cluster1" \
+    --name "Dataset1" --resource-group "SampleResourceGroup" --share-name "Share1" 
 ```
-
-##### List the synchronization settings of the Source Datashare
+##### Create #####
 ```
-az datashare consumer share-subscription list-source-share-synchronization-setting \
---account-name "cli_test_consumer_account" \
---resource-group "datashare_consumer_rg" \
---share-subscription-name "cli_test_share_subscription"
+az datashare dataset create --account-name "Account1" \
+    --kusto-database-data-set kusto-database-resource-id="/subscriptions/433a8dfd-e5d5-4e77-ad86-90acdc75eb1a/resourceGroups/SampleResourceGroup/providers/Microsoft.Kusto/clusters/Cluster1/databases/Database1" \
+    --name "Dataset1" --resource-group "SampleResourceGroup" --share-name "Share1" 
 ```
-
-##### Create a trigger for the Share Subsciption
+##### Create #####
 ```
-az datashare consumer trigger create \
---account-name "cli_test_consumer_account" \
---resource-group "datashare_consumer_rg" \
---share-subscription-name "cli_test_share_subscription" \
---name "cli_test_trigger" \
---recurrence-interval Day \
---synchronization-time "2020-04-05 10:50:00 +00:00" \
---kind ScheduleBased
+az datashare dataset create --account-name "Account1" \
+    --sqldb-table-data-set database-name="SqlDB1" schema-name="dbo" sql-server-resource-id="/subscriptions/433a8dfd-e5d5-4e77-ad86-90acdc75eb1a/resourceGroups/SampleResourceGroup/providers/Microsoft.Sql/servers/Server1" table-name="Table1" \
+    --name "Dataset1" --resource-group "SampleResourceGroup" --share-name "Share1" 
 ```
-
-##### Start a synchronization for the Share Subscription
+##### Create #####
 ```
-az datashare consumer share-subscription synchronization start \
---account-name "cli_test_consumer_account" \
---resource-group "datashare_consumer_rg" \
---share-subscription-name "cli_test_share_subscription" \
---synchronization-mode "Incremental"
+az datashare dataset create --account-name "Account1" \
+    --sqldw-table-data-set data-warehouse-name="DataWarehouse1" schema-name="dbo" sql-server-resource-id="/subscriptions/433a8dfd-e5d5-4e77-ad86-90acdc75eb1a/resourceGroups/SampleResourceGroup/providers/Microsoft.Sql/servers/Server1" table-name="Table1" \
+    --name "Dataset1" --resource-group "SampleResourceGroup" --share-name "Share1" 
+```
+##### Show #####
+```
+az datashare dataset show --account-name "Account1" --name "Dataset1" --resource-group "SampleResourceGroup" \
+    --share-name "Share1" 
+```
+##### List #####
+```
+az datashare dataset list --account-name "Account1" --resource-group "SampleResourceGroup" --share-name "Share1"
+```
+##### Delete #####
+```
+az datashare dataset delete --account-name "Account1" --name "Dataset1" --resource-group "SampleResourceGroup" \
+    --share-name "Share1" 
+```
+#### datashare consumer dataset-mapping ####
+##### Create #####
+```
+az datashare consumer dataset-mapping create --account-name "Account1" \
+    --blob-data-set-mapping container-name="C1" data-set-id="a08f184b-0567-4b11-ba22-a1199336d226" file-path="file21" resource-group="SampleResourceGroup" storage-account-name="storage2" subscription-id="433a8dfd-e5d5-4e77-ad86-90acdc75eb1a" \
+    --name "DatasetMapping1" --resource-group "SampleResourceGroup" --share-subscription-name "ShareSubscription1" 
+```
+##### Create #####
+```
+az datashare consumer dataset-mapping create --account-name "Account1" \
+    --sqldb-table-data-set-mapping database-name="Database1" data-set-id="a08f184b-0567-4b11-ba22-a1199336d226" schema-name="dbo" sql-server-resource-id="/subscriptions/433a8dfd-e5d5-4e77-ad86-90acdc75eb1a/resourceGroups/SampleResourceGroup/providers/Microsoft.Sql/servers/Server1" table-name="Table1" \
+    --name "DatasetMapping1" --resource-group "SampleResourceGroup" --share-subscription-name "ShareSubscription1" 
+```
+##### Create #####
+```
+az datashare consumer dataset-mapping create --account-name "Account1" \
+    --adls-gen2-file-data-set-mapping data-set-id="a08f184b-0567-4b11-ba22-a1199336d226" file-path="file21" file-system="fileSystem" output-type="Csv" resource-group="SampleResourceGroup" storage-account-name="storage2" subscription-id="433a8dfd-e5d5-4e77-ad86-90acdc75eb1a" \
+    --name "DatasetMapping1" --resource-group "SampleResourceGroup" --share-subscription-name "ShareSubscription1" 
+```
+##### Create #####
+```
+az datashare consumer dataset-mapping create --account-name "Account1" \
+    --sqldw-table-data-set-mapping data-set-id="a08f184b-0567-4b11-ba22-a1199336d226" data-warehouse-name="DataWarehouse1" schema-name="dbo" sql-server-resource-id="/subscriptions/433a8dfd-e5d5-4e77-ad86-90acdc75eb1a/resourceGroups/SampleResourceGroup/providers/Microsoft.Sql/servers/Server1" table-name="Table1" \
+    --name "DatasetMapping1" --resource-group "SampleResourceGroup" --share-subscription-name "ShareSubscription1" 
+```
+##### List #####
+```
+az datashare consumer dataset-mapping list --account-name "Account1" --resource-group "SampleResourceGroup" \
+    --share-subscription-name "ShareSubscription1" 
+```
+##### Show #####
+```
+az datashare consumer dataset-mapping show --account-name "Account1" --name "DatasetMapping1" \
+    --resource-group "SampleResourceGroup" --share-subscription-name "ShareSubscription1" 
+```
+##### Delete #####
+```
+az datashare consumer dataset-mapping delete --account-name "Account1" --name "DatasetMapping1" \
+    --resource-group "SampleResourceGroup" --share-subscription-name "ShareSubscription1" 
+```
+#### datashare invitation ####
+##### Create #####
+```
+az datashare invitation create --account-name "Account1" --target-email "receiver@microsoft.com" --name "Invitation1" \
+    --resource-group "SampleResourceGroup" --share-name "Share1" 
+```
+##### Show #####
+```
+az datashare invitation show --account-name "Account1" --name "Invitation1" --resource-group "SampleResourceGroup" \
+    --share-name "Share1" 
+```
+##### List #####
+```
+az datashare invitation list --account-name "Account1" --resource-group "SampleResourceGroup" --share-name "Share1"
+```
+##### Delete #####
+```
+az datashare invitation delete --account-name "Account1" --name "Invitation1" --resource-group "SampleResourceGroup" \
+    --share-name "Share1" 
+```
+#### datashare ####
+##### Create #####
+```
+az datashare create --account-name "Account1" --resource-group "SampleResourceGroup" --description "share description" \
+    --share-kind "CopyBased" --terms "Confidential" --name "Share1" 
+```
+##### Synchronization list #####
+```
+az datashare synchronization list --account-name "Account1" --resource-group "SampleResourceGroup" --name "Share1"
+```
+##### Show #####
+```
+az datashare show --account-name "Account1" --resource-group "SampleResourceGroup" --name "Share1"
+```
+##### List #####
+```
+az datashare list --account-name "Account1" --resource-group "SampleResourceGroup"
+```
+##### Synchronization list-detail #####
+```
+az datashare synchronization list-detail --account-name "Account1" --resource-group "SampleResourceGroup" \
+    --name "Share1" --id "7d0536a6-3fa5-43de-b152-3d07c4f6b2bb" 
+```
+##### Delete #####
+```
+az datashare delete --account-name "Account1" --resource-group "SampleResourceGroup" --name "Share1"
+```
+#### datashare provider-share-subscription ####
+##### List #####
+```
+az datashare provider-share-subscription list --account-name "Account1" --resource-group "SampleResourceGroup" \
+    --share-name "Share1" 
+```
+##### Show #####
+```
+az datashare provider-share-subscription show --account-name "Account1" \
+    --provider-share-subscription-id "4256e2cf-0f82-4865-961b-12f83333f487" --resource-group "SampleResourceGroup" \
+    --share-name "Share1" 
+```
+##### Reinstate #####
+```
+az datashare provider-share-subscription reinstate --account-name "Account1" \
+    --provider-share-subscription-id "4256e2cf-0f82-4865-961b-12f83333f487" --resource-group "SampleResourceGroup" \
+    --share-name "Share1" 
+```
+##### Revoke #####
+```
+az datashare provider-share-subscription revoke --account-name "Account1" \
+    --provider-share-subscription-id "4256e2cf-0f82-4865-961b-12f83333f487" --resource-group "SampleResourceGroup" \
+    --share-name "Share1" 
+```
+#### datashare consumer share-subscription ####
+##### Create #####
+```
+az datashare consumer share-subscription create --account-name "Account1" --resource-group "SampleResourceGroup" \
+    --invitation-id "12345678-1234-1234-12345678abd" --source-share-location "eastus2" --name "ShareSubscription1" 
+```
+##### Synchronization list #####
+```
+az datashare consumer share-subscription synchronization list --account-name "Account1" \
+    --resource-group "SampleResourceGroup" --name "ShareSub1" 
+```
+##### Show #####
+```
+az datashare consumer share-subscription show --account-name "Account1" --resource-group "SampleResourceGroup" \
+    --name "ShareSubscription1" 
+```
+##### List #####
+```
+az datashare consumer share-subscription list --account-name "Account1" --resource-group "SampleResourceGroup"
+```
+##### List-source-dataset #####
+```
+az datashare consumer share-subscription list-source-dataset --account-name "Account1" \
+    --resource-group "SampleResourceGroup" --name "Share1" 
+```
+##### List-source-share-synchronization-setting #####
+```
+az datashare consumer share-subscription list-source-share-synchronization-setting --account-name "Account1" \
+    --resource-group "SampleResourceGroup" --name "ShareSub1" 
+```
+##### Synchronization cancel #####
+```
+az datashare consumer share-subscription synchronization cancel --account-name "Account1" \
+    --resource-group "SampleResourceGroup" --name "ShareSubscription1" --id "7d0536a6-3fa5-43de-b152-3d07c4f6b2bb" 
+```
+##### Synchronization list-detail #####
+```
+az datashare consumer share-subscription synchronization list-detail --account-name "Account1" \
+    --resource-group "SampleResourceGroup" --name "ShareSub1" --id "7d0536a6-3fa5-43de-b152-3d07c4f6b2bb" 
+```
+##### Synchronization start #####
+```
+az datashare consumer share-subscription synchronization start --account-name "Account1" \
+    --resource-group "SampleResourceGroup" --name "ShareSubscription1" --mode "Incremental" 
+```
+##### Delete #####
+```
+az datashare consumer share-subscription delete --account-name "Account1" --resource-group "SampleResourceGroup" \
+    --name "ShareSubscription1" 
+```
+#### datashare synchronization-setting ####
+##### Create #####
+```
+az datashare synchronization-setting create --account-name "Account1" --resource-group "SampleResourceGroup" \
+    --share-name "Share1" \
+    --scheduled-synchronization-setting recurrence-interval="Day" synchronization-time="2018-11-14T04:47:52.9614956Z" \
+    --name "Dataset1" 
+```
+##### Show #####
+```
+az datashare synchronization-setting show --account-name "Account1" --resource-group "SampleResourceGroup" \
+    --share-name "Share1" --name "SynchronizationSetting1" 
+```
+##### List #####
+```
+az datashare synchronization-setting list --account-name "Account1" --resource-group "SampleResourceGroup" \
+    --share-name "Share1" 
+```
+##### Delete #####
+```
+az datashare synchronization-setting delete --account-name "Account1" --resource-group "SampleResourceGroup" \
+    --share-name "Share1" --name "SynchronizationSetting1" 
+```
+#### datashare consumer trigger ####
+##### Create #####
+```
+az datashare consumer trigger create --account-name "Account1" --resource-group "SampleResourceGroup" \
+    --share-subscription-name "ShareSubscription1" \
+    --scheduled-trigger recurrence-interval="Day" synchronization-mode="Incremental" synchronization-time="2018-11-14T04:47:52.9614956Z" \
+    --name "Trigger1" 
+```
+##### Show #####
+```
+az datashare consumer trigger show --account-name "Account1" --resource-group "SampleResourceGroup" \
+    --share-subscription-name "ShareSubscription1" --name "Trigger1" 
+```
+##### List #####
+```
+az datashare consumer trigger list --account-name "Account1" --resource-group "SampleResourceGroup" \
+    --share-subscription-name "ShareSubscription1" 
+```
+##### Delete #####
+```
+az datashare consumer trigger delete --account-name "Account1" --resource-group "SampleResourceGroup" \
+    --share-subscription-name "ShareSubscription1" --name "Trigger1" 
 ```

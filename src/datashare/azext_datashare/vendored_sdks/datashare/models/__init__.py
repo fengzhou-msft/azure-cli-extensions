@@ -66,8 +66,8 @@ try:
     from ._models_py3 import ShareSynchronizationList
     from ._models_py3 import SourceShareSynchronizationSetting
     from ._models_py3 import SourceShareSynchronizationSettingList
-    from ._models_py3 import SqlDBTableDataSet
-    from ._models_py3 import SqlDBTableDataSetMapping
+    from ._models_py3 import SqlDbTableDataSet
+    from ._models_py3 import SqlDbTableDataSetMapping
     from ._models_py3 import SqlDwTableDataSet
     from ._models_py3 import SqlDwTableDataSetMapping
     from ._models_py3 import SynchronizationDetails
@@ -137,8 +137,8 @@ except (SyntaxError, ImportError):
     from ._models import ShareSynchronizationList  # type: ignore
     from ._models import SourceShareSynchronizationSetting  # type: ignore
     from ._models import SourceShareSynchronizationSettingList  # type: ignore
-    from ._models import SqlDBTableDataSet  # type: ignore
-    from ._models import SqlDBTableDataSetMapping  # type: ignore
+    from ._models import SqlDbTableDataSet  # type: ignore
+    from ._models import SqlDbTableDataSetMapping  # type: ignore
     from ._models import SqlDwTableDataSet  # type: ignore
     from ._models import SqlDwTableDataSetMapping  # type: ignore
     from ._models import SynchronizationDetails  # type: ignore
@@ -150,18 +150,23 @@ except (SyntaxError, ImportError):
     from ._models import TriggerList  # type: ignore
 
 from ._data_share_management_client_enums import (
+    DataSetKind,
+    DataSetMappingKind,
     DataSetMappingStatus,
     DataSetType,
     InvitationStatus,
-    Kind,
     OutputType,
     ProvisioningState,
     RecurrenceInterval,
     ShareKind,
     ShareSubscriptionStatus,
+    SourceShareSynchronizationSettingKind,
     Status,
     SynchronizationMode,
+    SynchronizationSettingKind,
+    TriggerKind,
     TriggerStatus,
+    Type,
 )
 
 __all__ = [
@@ -224,8 +229,8 @@ __all__ = [
     'ShareSynchronizationList',
     'SourceShareSynchronizationSetting',
     'SourceShareSynchronizationSettingList',
-    'SqlDBTableDataSet',
-    'SqlDBTableDataSetMapping',
+    'SqlDbTableDataSet',
+    'SqlDbTableDataSetMapping',
     'SqlDwTableDataSet',
     'SqlDwTableDataSetMapping',
     'SynchronizationDetails',
@@ -235,16 +240,21 @@ __all__ = [
     'Synchronize',
     'Trigger',
     'TriggerList',
+    'DataSetKind',
+    'DataSetMappingKind',
     'DataSetMappingStatus',
     'DataSetType',
     'InvitationStatus',
-    'Kind',
     'OutputType',
     'ProvisioningState',
     'RecurrenceInterval',
     'ShareKind',
     'ShareSubscriptionStatus',
+    'SourceShareSynchronizationSettingKind',
     'Status',
     'SynchronizationMode',
+    'SynchronizationSettingKind',
+    'TriggerKind',
     'TriggerStatus',
+    'Type',
 ]
